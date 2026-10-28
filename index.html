@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Sonic the Hedgehog 2 - Kubo Touch</title>
+    <style>
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; background-color: #121212; color: #fff; font-family: Arial, sans-serif; }
+        header { text-align: center; padding: 15px; background: #1e1e1e; }
+        .badge { background: #3498db; color: #fff; padding: 4px 12px; border-radius: 20px; font-weight: bold; font-size: 14px; }
+        #game-card { max-width: 500px; margin: 20px auto; background: #1e1e1e; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.5); }
+        .cover-container { 
+            width: 100%; 
+            height: 250px; 
+            background-image: url('sonic2-cover.jpg'); 
+            background-size: contain; 
+            background-repeat: no-repeat; 
+            background-position: center; 
+            background-color: #121212; 
+        }
+        .content { padding: 20px; }
+        h1 { margin: 0 0 10px 0; font-size: 24px; color: #3498db; }
+        .meta-info { display: flex; gap: 10px; margin-bottom: 15px; font-size: 13px; color: #aaa; }
+        .description { font-size: 14px; line-height: 1.5; color: #ddd; margin-bottom: 15px; }
+        .details { font-size: 13px; color: #bbb; margin-bottom: 20px; }
+        .details ul { padding-left: 20px; margin: 0; }
+        .btn-play { display: block; width: 100%; padding: 12px; background: #2980b9; color: #fff; border: none; border-radius: 6px; font-weight: bold; font-size: 16px; cursor: pointer; text-align: center; text-decoration: none; }
+        .btn-play:hover { background: #1f618d; }
+        #game-container { display: none; width: 100%; height: 100vh; }
+        #game { width: 100%; height: 100%; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="badge">KUBO TOUCH</span>
+    </header>
+
+    <div id="game-card">
+        <div class="cover-container"></div>
+        <div class="content">
+            <h1>Sonic the Hedgehog 2</h1>
+            
+            <div class="meta-info">
+                <span>🎮 1-2 Jogadores</span>
+                <span>📅 1992</span>
+                <span>🕹️ SEGA</span>
+            </div>
+
+            <p class="description">
+                Acompanhe o Sonic e o seu novo amigo Tails numa aventura em alta velocidade para impedir que o Dr. Eggman construa a Death Egg!
+            </p>
+
+            <div class="details">
+                <ul>
+                    <li><strong>🕹️ Gênero:</strong> Plataforma / Ação</li>
+                </ul>
+            </div>
+
+            <button class="btn-play" onclick="startGame()">JOGAR AGORA</button>
+        </div>
+    </div>
+
+    <div id="game-container">
+        <div id="game"></div>
+    </div>
+
+    <script type="text/javascript">
+        function startGame() {
+            const container = document.getElementById("game-container");
+            
+            document.getElementById("game-card").style.display = "none";
+            container.style.display = "block";
+            container.innerHTML = '<div id="game" style="width:100%; height:100%;"></div>';
+
+            window.EJS_player = "#game";
+            window.EJS_core = "segaMD";
+            window.EJS_gameUrl = "sonic2.bin"; // Altere para o nome exato da sua ROM no GitHub
+            window.EJS_pathtodata = "https://cdn.emulatorjs.org/stable/data/";
+            window.EJS_gameName = "Sonic the Hedgehog 2";
+            window.EJS_language = "pt-BR";
+            window.EJS_startOnLoaded = true;
+
+            const oldLoader = document.getElementById("emulatorjs-loader");
+            if (oldLoader) oldLoader.remove();
+
+            const script = document.createElement("script");
+            script.id = "emulatorjs-loader";
+            script.src = window.EJS_pathtodata + "loader.js";
+            script.async = true;
+            
+            script.onerror = function() {
+                alert("Erro ao carregar o EmulatorJS. Verifique a conexão.");
+            };
+            
+            document.body.appendChild(script);
+        }
+    </script>
+</body>
+</html>
